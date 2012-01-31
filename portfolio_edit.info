@@ -1,0 +1,8 @@
+; $Id$
+
+name = Portfolio Settings
+description = Settings for the portfolio module.
+
+version = 1.0
+
+core = 7.x
