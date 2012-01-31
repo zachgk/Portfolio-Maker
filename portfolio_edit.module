@@ -1,0 +1,74 @@
+<?php
+
+function portfolio_edit_menu() {
+    $items['new_portfolio'] = array(
+     'title' => 'Create a New Portfolio',
+     'description' => 'A page for making new portfolios',
+     'weight' => 0,
+     'page callback' => 'create_portfolio',
+     'access callback' => TRUE,
+     'type' => MENU_CALLBACK,
+   );
+      
+  return $items;
+}
+
+function create_portfolio(){
+  return drupal_get_form("create_portfolio_form");
+}
+
+function create_portfolio_form() { 
+	global $user;
+
+ $form['url_settings'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Website Address'),
+      '#collapsible' => FALSE,
+    );
+	$form['url_settings']['url'] = array(
+	  '#type' => 'textfield', 
+	  '#title' => t('Website address'), 
+	  '#prefix' => '<label id="www_domain_label">www.</label>', 
+	  '#size' => 60, 
+	  '#maxlength' => 128, 
+	  '#required' => TRUE,
+	  '#suffix' => '<label id="url_domain_label">.example.com</label>',
+	);
+ $form['titles'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Portfolio Titles'),
+      '#collapsible' => FALSE,
+	  '#description' => 'These will be displayed at the top of your portfolio.',
+    );
+	$form['titles']['top_title'] = array(
+	  '#type' => 'textfield', 
+	  '#title' => t('Top Title'), 
+	  '#size' => 60, 
+	  '#maxlength' => 128, 
+	  '#required' => TRUE,
+	);
+	$form['titles']['bottom_title'] = array(
+	  '#type' => 'textfield', 
+	  '#title' => t('Bottom Title (optional)'), 
+	  '#size' => 60, 
+	  '#maxlength' => 128, 
+	  '#required' => FALSE,
+	);
+	 $form['footer_info'] = array(
+		  '#type' => 'fieldset',
+		  '#title' => t('Footer'),
+		  '#collapsible' => FALSE,
+		  '#description' => 'These will be displayed at the bottom of your portfolio.',
+		);
+		$form['footer_info']['footer'] = array(
+		  '#type' => 'textarea', 
+		  '#title' => t('Footer Text'), 
+		  '#default_value' => $user->name.'\'s Awesome Portfolio from PortfolioMaker.com', 
+		  '#required' => TRUE,
+		);	
+	$form['publish'] = array(
+	  '#type' => 'submit', 
+	  '#value' => t('Create Portfolio'), 	
+	);
+	return $form;
+}
