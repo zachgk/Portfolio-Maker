@@ -4,5 +4,6 @@ name = Portfolio Settings
 description = Settings for the portfolio module.
 
 version = 1.0
-
+files[] = portfolio_edit.install
+files[] = portfolio_edit.module
 core = 7.x

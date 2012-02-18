@@ -1,5 +1,4 @@
 <?php
-
 function portfolio_edit_menu() {
     $items['new_portfolio'] = array(
      'title' => 'Create a New Portfolio',
@@ -9,7 +8,7 @@ function portfolio_edit_menu() {
      'access callback' => TRUE,
      'type' => MENU_CALLBACK,
    );
-      
+   
   return $items;
 }
 
@@ -18,8 +17,7 @@ function create_portfolio(){
 }
 
 function create_portfolio_form() { 
-	global $user;
-
+ global $user;
  $form['url_settings'] = array(
       '#type' => 'fieldset',
       '#title' => t('Website Address'),
