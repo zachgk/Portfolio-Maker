@@ -119,7 +119,7 @@ function basic_information_form() {
 	  '#type' => 'submit', 
 	  '#value' => t('Create Portfolio'), 	
 	);
-	$path = drupal_get_path('module', 'portfolio');
+	$path = drupal_get_path('module', 'portfolio_edit');
 	$form['#attached'] = array(
 	  'css' => array (
 	    'type' => 'file',
