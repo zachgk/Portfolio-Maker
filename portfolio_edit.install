@@ -6,7 +6,7 @@ function portfolio_edit_install() {
   $portfolio_edit = array(
     'type' => 'portfolio',
     'name' => $t('Portfolio'),
-	'has_title' => FALSE,
+	'has_title' => TRUE,
     'base' => 'node_content',
     'description' => $t('Content type to handle portfolios.'),
 //    'body_label' => $t('portfolio_edit Description'),
@@ -86,6 +86,15 @@ function _portfolio_edit_installed_instances() {
         'settings'   => array('rows' => 5),
       ),
     ),
+ 'portfolio_type' => array(
+      'field_name'  => 'portfolio_type',
+      'label'       => $t('Portfolio Type'),
+      'cardinality' => 1,
+      'widget'      => array(
+        'type'       => 'text_textarea',
+        'settings'   => array('rows' => 5),
+      ),
+    ),
  // instance of the textarea field above
     'pages' => array(
       'field_name'  => 'pages',
@@ -143,6 +152,15 @@ function _portfolio_edit_installed_fields() {
 	 'footer' => array(
       'field_name'   => 'footer',
       'label'        => $t('Footer'),
+      'cardinality'  => 1,
+      'type'         => 'text',
+      'settings'     => array(
+        'max_length'  => 1000,
+      ),
+    ),	
+	'portfolio_type' => array(
+      'field_name'   => 'portfolio_type',
+      'label'        => $t('Portfolio Type'),
       'cardinality'  => 1,
       'type'         => 'text',
       'settings'     => array(
