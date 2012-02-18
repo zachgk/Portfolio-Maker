@@ -68,5 +68,14 @@ function create_portfolio_form() {
 	  '#type' => 'submit', 
 	  '#value' => t('Create Portfolio'), 	
 	);
+	$path = drupal_get_path('module', 'portfolio');
+	$form['#attached'] = array(
+	  'css' => array (
+	    'type' => 'file',
+		'data' => $path . '/form_theme.css'
+	  )
+	);
 	return $form;
 }
+
+
