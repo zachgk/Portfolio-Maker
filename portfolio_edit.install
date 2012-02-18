@@ -86,15 +86,16 @@ function _portfolio_edit_installed_instances() {
         'settings'   => array('rows' => 5),
       ),
     ),
- 	'content' => array(
-      'field_name'  => 'content',
-      'label'       => $t('content'),
-      'cardinality' => 'FIELD_CARDINALITY_UNLIMITED',
+ // instance of the textarea field above
+    'pages' => array(
+      'field_name'  => 'pages',
+      'label'       => $t('Pages'),
+      'cardinality' => 1,
       'widget'      => array(
         'type'       => 'text_textarea',
         'settings'   => array('rows' => 5),
       ),
-    ), 
+    ),
   );
   return $instances;
 }
@@ -128,7 +129,17 @@ function _portfolio_edit_installed_fields() {
       'settings'     => array(
         'max_length'  => 1000,
       ),
-    ),
+    ), 
+    // a text (textarea) field
+    'pages' => array(
+      'field_name'   => 'pages',
+      'label'        => $t('Pages'),
+      'cardinality'  => FIELD_CARDINALITY_UNLIMITED,
+      'type'         => 'text',
+      'settings'     => array(
+        'max_length'  => 1000,
+      ),
+    ),	
 	 'footer' => array(
       'field_name'   => 'footer',
       'label'        => $t('Footer'),
@@ -138,21 +149,13 @@ function _portfolio_edit_installed_fields() {
         'max_length'  => 1000,
       ),
     ),	
- 	'content' => array(
-      'field_name'   => 'Content',
-      'label'        => $t('Pages'),
-      'cardinality'  => 'FIELD_CARDINALITY_UNLIMITED',
-      'type'         => 'text',
-      'settings'     => array(
-        'max_length'  => 1000,
-      ),
-    ), 
+
       
   );
   return $fields;
 }
 
-function article_uninstall() {
+function portfolio_edit_uninstall() {
   // Gather all the example content that might have been created while this
   // module was enabled.  Simple selects still use db_query().
   // http://api.drupal.org/api/function/db_query/7
