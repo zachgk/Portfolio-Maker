@@ -3,7 +3,6 @@ function portfolio_edit_menu() {
     $items['basic_information'] = array(
      'title' => 'Portfolio Information',
      'description' => 'A page for entering basic portfolio information',
-     'weight' => 0,
      'page callback' => 'basic_information',
      'access callback' => TRUE,
      'type' => MENU_CALLBACK,
@@ -11,11 +10,17 @@ function portfolio_edit_menu() {
     $items['new_portfolio'] = array(
      'title' => 'Create a new Portfolio',
      'description' => 'Users choose a portfolio type',
-     'weight' => 0,
      'page callback' => 'new_portfolio',
      'access callback' => TRUE,
      'type' => MENU_CALLBACK,
-   );   
+   );  
+   $items['edit_portfolio'] = array(
+     'title' => 'Edit your portfolio',
+     'description' => '',
+     'page callback' => 'edit_portfolio',
+     'access callback' => TRUE,
+     'type' => MENU_CALLBACK,
+   );     
   return $items;
 }
 
@@ -138,5 +143,60 @@ function basic_information_form_submit($form, &$form_state) {
 	$node->url['und'][0]['value'] = $form_state['values']['url'];
 	$node->title = $node->portfolio_header['und'][0]['value']; //set the node title to the main header
 	node_save($node);
-	drupal_goto('node/'.$node->nid);
+	drupal_goto('edit_portfolio/'.$node->nid.'/pages');
+}
+
+function edit_portfolio(){
+    global $user;
+	$node = node_load(arg(1));
+	$form_state['build_info']['args'] = array($node);
+	form_load_include($form_state, 'inc', 'node', 'node.pages');
+	return drupal_build_form('portfolio_node_form', $form_state);
+}
+
+function portfolio_edit_form_alter(&$form, $form_state, $form_id) {
+
+	if ($form_id == "portfolio_node_form" && arg(0) == 'edit_portfolio') { //hide everything!
+		//$node = node_load(arg(1));
+	    hide($form['url']);
+	    hide($form['path']);
+	    hide($form['title']);
+		hide($form['pages']);
+	    hide($form['portfolio_header']);
+	    hide($form['portfolio_header_2']);
+		hide($form['footer']);
+		hide($form['portfolio_type']);
+		hide($form['additional_settings']);
+		$form['actions']['preview']['#access'] = FALSE;
+		$form['actions']['delete']['#access'] = FALSE;
+		
+		drupal_set_message($form_id);
+	
+	if (arg(2) == "pages") {
+	    show($form['pages']);
+		drupal_set_title("Add and Edit Pages in your Portfolio");
+		}
+	if (arg(2) == "information") {
+	    show($form['portfolio_header']);
+	    show($form['portfolio_header_2']);
+		show($form['footer']);
+		drupal_set_title("Customize the Header and Footer of your Portfolio");
+		}
+/*	if (arg(2) == "colors") {
+	    show($form['field_portfolio_colors']);
+		drupal_set_title("Style your Portfolio!");
+	} */
+	//add cancel button
+	  $form['actions']['cancel'] = array(
+	  '#type' => 'submit', 
+	  '#value' => t('Cancel'), 	
+	  '#weight' => -100,
+      '#submit' => array('cancel_edits'),
+	);
+	/*$form['pass_nid'] = array(
+	'#type' => 'hidden',
+	'#default_value' => $node->nid,
+	'#weight' => -100,
+	);*/
+	}
 }
