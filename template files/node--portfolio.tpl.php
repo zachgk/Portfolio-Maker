@@ -100,7 +100,22 @@
       hide($content['comments']);
       hide($content['links']);
    //  print render($content);
-   print '<a style="margin: 10px;" class="button" href="?q=new_portfolio">New Portfolio</a>';
+   print '<a style="margin: 10px;" class="button" href="http://'.$title.'.portfolio.pchwebclub.com">View</a>';
+   
+   print '<br><br>';
+   //print '<iframe height="50%" width="50%" src="http://'.$title.'.portfolio.pchwebclub.com"></iframe>';
+   //print '<br><br>';
+   
+   $editing_options = '<option>Edit...</option>';
+   $editing_options.= '<option value="pages">Pages</option>';
+   $editing_options.= '<option value="information">Information</option>';
+   print 'Edit Portfolio:  <select id="edit_portfolio_edit_options" onchange="edit_portfolio_edit_option()">'.$editing_options.'</select>';
+ print '<script>
+     function edit_portfolio_edit_option(){
+	   var e = document.getElementById("edit_portfolio_edit_options");
+	   window.location = "/edit_portfolio/'.$node->nid.'/"+ e.options[e.selectedIndex].value;
+	 }
+	</script>';
     ?>
   </div>
 
